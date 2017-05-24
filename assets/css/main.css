@@ -15,6 +15,10 @@
 
   }
 
+.todo-check {
+  cursor: pointer;
+}
+
   footer {
     padding-top: 0 !important;
   }

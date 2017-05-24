@@ -29,7 +29,6 @@ const connection = mysql.createConnection({
 
 app.get("/", function(req, res) {
     res.render("index");
-
 });
 
 app.listen(PORT);
