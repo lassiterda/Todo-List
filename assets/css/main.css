@@ -15,6 +15,10 @@
 
   }
 
+.collection {
+  margin-bottom: 0;
+}
+
 .todo-check {
   cursor: pointer;
 }
@@ -24,7 +28,7 @@
   }
 
   h5 {
-    margin-left: 20px;
+    margin-left: 25px;
   }
 
 @media screen and (max-width: 560px) {
