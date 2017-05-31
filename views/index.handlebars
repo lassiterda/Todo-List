@@ -1,6 +1,35 @@
-<h5 class="grey-text text-darken-4">To-do List</h5>
-  <ul class="collection">
-    {{#each data}}
-    <li class="collection-item dismissable" id={{id}}><div>{{todo_text}}<i class="material-icons secondary-content todo-check">check</i></div></li>
-    {{/each}}
-  </ul>
+<ul class="collection collapsible todo-section" data-collapsible="accordion">
+  <li>
+      <div class="collapsible-header collection-item todo-header active">
+        <h5 class="grey-text text-darken-4">To-do List</h5>
+      </div>
+      <div class="collapsible-body todo-list"><ul class="collection">
+        {{#each data.incomplete}}
+          <li class="collection-item dismissable todo-item" id={{id}}>
+            <div>{{todo_text}}
+              <i class="material-icons secondary-content red-text todo-remove ">close</i>
+              <i class="material-icons secondary-content todo-check ">check</i>
+            </div>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+  </li>
+</ul>
+
+
+<ul class="collection collapsible todo-section" data-collapsible="accordion">
+    <li>
+      <div class="collapsible-header collection-item  todo-header">
+        <h5 class="grey-text text-darken-4">Completed</h5>
+      </div>
+      <div class="collapsible-body complete-list"><ul class="collection">
+        {{#each data.completed}}
+          <li class="collection-item dismissable" id={{id}}>
+            <div>{{todo_text}}</div>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+    </li>
+</ul>

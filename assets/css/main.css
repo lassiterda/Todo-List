@@ -1,35 +1,48 @@
-  body {
-    margin-top: 20px;
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-    background: linear-gradient(to top, #154277 0%, #576e71 30%, #e1c45e 70%, #b26339 100%);
-  }
+body {
+  margin-top: 20px;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background: linear-gradient(to top, #154277 0%, #576e71 30%, #e1c45e 70%, #b26339 100%);
+}
 
-  #container-main {
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12),0 3px 1px -2px rgba(0,0,0,0.2);
-  }
+#container-main {
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12),0 3px 1px -2px rgba(0,0,0,0.2);
+}
 
-  main {
-    flex: 1 0 auto;
+main {
+  flex: 1 0 auto;
 
-  }
+}
 
 .collection {
   margin-bottom: 0;
 }
 
-.todo-check {
-  cursor: pointer;
+footer {
+  padding-top: 0 !important;
 }
 
-  footer {
-    padding-top: 0 !important;
-  }
+.todo-section {
+  margin: 0;
+  border: none;
+}
 
-  h5 {
-    margin-left: 25px;
-  }
+.todo-list, .complete-list {
+  padding: .5rem;
+}
+
+.todo-header h5{
+  font-size: 18px;
+}
+
+.todo-item {
+  padding: 10px 10px 10px 20px !important;
+}
+
+.todo-check, .todo-remove {
+  cursor: pointer;
+}
 
 @media screen and (max-width: 560px) {
   #container-main {

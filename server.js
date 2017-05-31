@@ -6,6 +6,7 @@ const Promise = require('bluebird');
 
 require('express-handlebars');
 
+//require for dotenv, importing environment variables contained in .env file.
 const dotenv = require('dotenv');
 
 //Init for express server and PORT variable
@@ -25,13 +26,13 @@ var exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-//Databse connection
-
+//require for mysql, and promisifyAll from bluebird to make asynchronous
 const mysql = require('mysql');
 Promise.promisifyAll(mysql);
 Promise.promisifyAll(require("mysql/lib/Connection").prototype);
 Promise.promisifyAll(require("mysql/lib/Pool").prototype);
 
+//Databse connection
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -39,17 +40,41 @@ const connection = mysql.createConnection({
   database: "todo_list_db"
 });
 
-
+//main GET handler which serves all todo's and
 app.get("/", function(req, res) {
-  connection.queryAsync("SELECT id, todo_text FROM todo_items")
+  connection.queryAsync("SELECT id, todo_text, complete FROM todo_items")
   .then(function(data) {
-    res.render("index", {data: data});
+    let splitList = {
+      incomplete: data.filter(function(ele) {
+        return ele.complete === 0
+      }),
+      completed: data.filter(function(ele) {
+        return ele.complete === 1
+      })
+    }
+    res.render("index", {data: splitList});
   })
 });
 
-app.post("/", function(req, res) {
+
+app.post("/api/create", function(req, res) {
   connection.queryAsync("INSERT INTO todo_items (todo_text) VALUES (?)", [req.body.todo_text])
   .then((response) => {
+    console.log(response);
+    if(response) {
+      res.send(true);
+    }
+    else {
+      res.send(false)
+    }
+  })
+})
+
+
+app.post("/api/delete/:id", function(req, res) {
+  let todo_id = req.params.id;
+  connection.queryAsync("DELETE FROM todo_items WHERE id = ?",[todo_id])
+  .then(function(response){
     if(response) {
       res.send(true)
     }
@@ -59,9 +84,10 @@ app.post("/", function(req, res) {
   })
 })
 
-app.post("/:id", function(req, res) {
+//Complete for individual Todo Items
+app.post("/api/complete/:id", function(req, res) {
   let todo_id = req.params.id;
-  connection.queryAsync("DELETE FROM todo_items WHERE id = ?", [todo_id])
+  connection.queryAsync("UPDATE todo_items set complete = true WHERE id = ?", [todo_id])
   .then(function(response) {
     if(response) {
       res.send(true)
@@ -72,3 +98,8 @@ app.post("/:id", function(req, res) {
   })
 })
 app.listen(PORT);
+
+
+const getNewTodo = function(obj) {
+
+}
